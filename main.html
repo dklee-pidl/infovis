@@ -1,0 +1,41 @@
+<body>
+
+
+
+
+  <svg height="1000" width="1000">
+    <rect x="0" y="0" width="100" height="50"></rect>
+    <rect x="0" y="100" width="200" height="50"></rect>
+    <rect x="0" y="200" width="200" height="50"></rect>
+  </svg>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script>
+    d3.select('rect')
+    .attr('width', '600');
+
+    let my_data = [1,2,3];
+    let oldData = [
+      {name: 'A', value: 10},
+      {name: 'B', value: 20},
+      {name: 'C', value: 15}
+    ]
+
+    let newData = [
+      {name: 'B', value: 10},
+      {name: 'C', value: 15},
+      {name: 'D', value: 5}
+    ]
+
+    let svg = d3.select('svg')
+    let bars = svg.selectAll('rect').data(newData, d=>d.name)
+
+    bars.enter()
+        .append('rect')
+        .merge(bars)
+        .attr('width', 30)
+        .attr('height', d=>d.value*10)
+        .attr('transform', (d, i) => 'translate(' + i * 40 + ', 0)')
+    bars.exit().remove();
+
+  </script>
+</body>
